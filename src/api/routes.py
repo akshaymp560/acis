@@ -75,3 +75,7 @@ def download_pdf(filename: str):
     if not os.path.exists(filename):
         return HTMLResponse("File not found.", status_code=404)
     return FileResponse(filename, media_type="application/pdf", filename=filename)
+
+@router.get("/test")
+async def test_route():
+    return {"message": "test commit"}
