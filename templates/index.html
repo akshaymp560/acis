@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACIS // Enterprise Intelligence</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #020617; color: #cbd5e1; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        
+        /* Python Markdown Parser Styling */
+        .prose h1 { color: #f8fafc; font-size: 1.5rem; font-weight: 500; margin-bottom: 1.25rem; letter-spacing: -0.025em; }
+        .prose h2 { color: #e2e8f0; font-size: 1.1rem; font-weight: 500; margin-top: 1.75rem; margin-bottom: 0.75rem; border-left: 2px solid #3b82f6; padding-left: 10px; }
+        .prose p { margin-bottom: 1rem; text-align: justify; line-height: 1.7; color: #94a3b8; }
+        .prose strong { color: #f1f5f9; font-weight: 600; }
+        .prose ul { margin-bottom: 1rem; padding-left: 1.25rem; list-style-type: square; color: #64748b; }
+        .prose li { margin-bottom: 0.5rem; color: #cbd5e1; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-blue-500/30">
+
+    <nav class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="ph-fill ph-hexagon text-blue-500 text-xl"></i>
+                <span class="font-semibold tracking-wider text-xs font-mono text-slate-300">ACIS_GATEWAY_V2</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest">SERVER-SIDE RENDERING ACTIVE</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-3xl mx-auto w-full px-6 py-16 flex flex-col">
+        
+        <div class="mb-10 text-center">
+            <h1 class="text-3xl font-light text-slate-100 mb-2 tracking-tight">Corporate Intelligence Directive</h1>
+            <p class="text-slate-500 text-sm">Python-driven multi-agent orchestration.</p>
+        </div>
+
+        <form method="POST" action="/" class="bg-slate-900 border border-slate-800 rounded-lg p-2 shadow-2xl flex items-center transition-all focus-within:border-blue-500/50">
+            <i class="ph ph-magnifying-glass text-slate-500 ml-3 text-xl"></i>
+            <input type="text" name="topic" required value="{{ topic if topic else '' }}"
+                class="bg-transparent w-full px-4 py-2 text-slate-200 text-sm focus:outline-none placeholder-slate-600 font-mono"
+                placeholder="Target entity (e.g., Tesla AI Architecture)">
+            
+            <button type="submit" 
+                class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded text-xs font-mono tracking-widest transition-all">
+                <i class="ph ph-rocket-launch text-lg"></i>
+                <span>EXECUTE</span>
+            </button>
+        </form>
+
+        {% if error %}
+        <div class="mt-8 text-center text-rose-500 text-xs font-mono bg-rose-950/20 border border-rose-900/50 p-4 rounded-lg">
+            [SYSTEM HALT]: {{ error }}
+        </div>
+        {% endif %}
+
+        {% if result_html %}
+        <div class="mt-12">
+            <div class="bg-[#0a0f1c] border border-slate-800 rounded-t-lg px-5 py-3 border-b flex justify-between items-center">
+                <div class="flex items-center space-x-2 text-slate-400">
+                    <i class="ph ph-file-text text-lg"></i>
+                    <span class="text-[11px] font-mono tracking-wider">VERIFIED_BRIEF.md</span>
+                </div>
+                <a href="{{ pdf_url }}" target="_blank"
+                    class="flex items-center space-x-2 text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded transition-colors border border-slate-700 font-mono tracking-wider">
+                    <i class="ph ph-download-simple text-sm"></i>
+                    <span>EXPORT PDF</span>
+                </a>
+            </div>
+            <div class="bg-[#0a0f1c] border-x border-b border-slate-800 rounded-b-lg p-8 shadow-2xl">
+                <div class="prose max-w-none">
+                    {{ result_html | safe }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </main>
+</body>
+</html>
