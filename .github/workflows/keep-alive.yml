@@ -1,0 +1,13 @@
+name: Keep-Alive Heartbeat
+
+on:
+  schedule:
+    # This runs every 10 minutes
+    - cron: '*/10 * * * *'
+
+jobs:
+  ping-render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send GET request to Render
+        run: curl -I https://acis-engine.onrender.com
